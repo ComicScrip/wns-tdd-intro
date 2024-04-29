@@ -47,4 +47,31 @@ describe("toCelsius", () => {
   it("should be a function", () => {
     expect(typeof toCelsius).toBe("function");
   });
+
+  it("should return a number when a number is passed as a first", () => {
+    expect(typeof toCelsius(1)).toBe("number");
+    expect(typeof toCelsius(1.8)).toBe("number");
+    expect(typeof toCelsius(2)).toBe("number");
+    expect(typeof toCelsius(-2)).toBe("number");
+  });
+
+  it("Should return null if the first argument can't be converted into a number. We can take null, undefiend, an object, an array or a string like 'toto' as examples.", () => {
+    expect(toCelsius(null)).toBe(null);
+    expect(toCelsius(undefined)).toBe(null);
+    expect(toCelsius({})).toBe(null);
+    expect(toCelsius([])).toBe(null);
+    expect(toCelsius("toto")).toBe(null);
+  });
+
+  it("Should return the first argument (interpreted as farenheit by default) converted into Celsius.", () => {
+    expect(toCelsius(32)).toBe(0);
+    expect(toCelsius(50)).toBe(10);
+    expect(toCelsius(500)).toBe(260);
+  });
+
+  it("Should return the first argument as a string (interpreted as farenheit by default) converted into Celsius", () => {
+    expect(toCelsius("32")).toBe(0);
+    expect(toCelsius("50")).toBe(10);
+    expect(toCelsius("500")).toBe(260);
+  });
 });
