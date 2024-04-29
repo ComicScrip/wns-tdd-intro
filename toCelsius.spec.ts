@@ -1,5 +1,5 @@
-import { describe, expect } from "@jest/globals";
 import { toCelsius } from "./toCelsius";
+import { describe, it, expect } from "@jest/globals";
 
 /*
 Ressources for the exercise : 
@@ -43,35 +43,47 @@ We should have the following mapping :
   273.15, 2, 'k' -> 0
 */
 
-describe("toCelsius", () => {
+describe("toCelcuis", () => {
   it("should be a function", () => {
     expect(typeof toCelsius).toBe("function");
   });
 
-  it("should return a number when a number is passed as a first", () => {
+  it("should return a number when a number is passed as a first arguement", () => {
     expect(typeof toCelsius(1)).toBe("number");
     expect(typeof toCelsius(1.8)).toBe("number");
     expect(typeof toCelsius(2)).toBe("number");
-    expect(typeof toCelsius(-2)).toBe("number");
   });
 
-  it("Should return null if the first argument can't be converted into a number. We can take null, undefiend, an object, an array or a string like 'toto' as examples.", () => {
+  it(`should return null if the first argument can't be converted into a number`, () => {
     expect(toCelsius(null)).toBe(null);
-    expect(toCelsius(undefined)).toBe(null);
     expect(toCelsius({})).toBe(null);
     expect(toCelsius([])).toBe(null);
     expect(toCelsius("toto")).toBe(null);
+    expect(toCelsius()).toBe(null);
   });
 
-  it("Should return the first argument (interpreted as farenheit by default) converted into Celsius.", () => {
+  it("should return the first argument (interpreted as farenheit by default) converted into Celsius", () => {
     expect(toCelsius(32)).toBe(0);
     expect(toCelsius(50)).toBe(10);
     expect(toCelsius(500)).toBe(260);
   });
 
-  it("Should return the first argument as a string (interpreted as farenheit by default) converted into Celsius", () => {
+  it("should accept a string representing a number in first parameter", () => {
     expect(toCelsius("32")).toBe(0);
     expect(toCelsius("50")).toBe(10);
     expect(toCelsius("500")).toBe(260);
+  });
+
+  it("should have a precision of 2 by default", () => {
+    expect(toCelsius(52)).toBe(11.11);
+  });
+
+  it("should accept a second parameter to indicate the required precision", () => {
+    expect(toCelsius(52, 1)).toBe(11.1);
+    expect(toCelsius(80, 4)).toBe(26.6667);
+  });
+
+  it("should accept a third argument to specify a that the value we give is in kelvin and not farenheit", () => {
+    expect(toCelsius(300, 2, "k")).toBe(26.85);
   });
 });
